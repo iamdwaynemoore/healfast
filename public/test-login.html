@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HealFast Login Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+            z-index: -1;
+        }
+        h1 {
+            font-size: 48px;
+            font-weight: 200;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 50px;
+        }
+        input {
+            width: 100%;
+            padding: 16px 24px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            color: white;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.2);
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            margin: 16px 0;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.02);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 32px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 0.5px;
+            background: rgba(255,255,255,0.1);
+        }
+        .divider span {
+            padding: 0 16px;
+            font-size: 12px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .google-btn {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .google-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .toggle {
+            margin-top: 32px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+        .toggle button {
+            background: none;
+            border: none;
+            color: white;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .toggle button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-bg">
+        <video autoplay loop muted playsinline>
+            <source src="/water-swirl.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <h1>HealFast</h1>
+        <div class="subtitle">Transform Through Fasting</div>
+        
+        <form>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <button class="google-btn">
+            Continue with Google
+        </button>
+        
+        <div class="toggle">
+            Don't have an account? <button>Sign up</button>
+        </div>
+    </div>
+</body>
+</html>
