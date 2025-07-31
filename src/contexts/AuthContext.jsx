@@ -10,6 +10,19 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // Check if user is logged in on mount
     checkAuth();
+    
+    // Subscribe to auth state changes
+    const { data: authListener } = User.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        checkAuth();
+      } else if (event === 'SIGNED_OUT') {
+        setUser(null);
+      }
+    });
+    
+    return () => {
+      authListener?.subscription?.unsubscribe();
+    };
   }, []);
 
   const checkAuth = async () => {
@@ -77,7 +90,9 @@ export function AuthProvider({ children }) {
 
   const updateUserProfile = async (updates) => {
     try {
-      const updatedUser = await User.update(user.id, updates);
+      await User.updateProfile(updates);
+      // Refresh user data
+      const updatedUser = await User.me();
       setUser(updatedUser);
       return { success: true };
     } catch (error) {
@@ -86,7 +101,8 @@ export function AuthProvider({ children }) {
   };
 
   const hasCompletedOnboarding = () => {
-    return user?.onboarding_completed === true;
+    // Check if user has a full_name set
+    return user?.full_name && user.full_name.trim() !== '';
   };
 
   const value = {

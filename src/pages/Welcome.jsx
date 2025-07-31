@@ -14,10 +14,18 @@ export default function Welcome() {
 
     setLoading(true);
     try {
-      await updateUserProfile({ full_name: name });
-      navigate('/dashboard');
+      const result = await updateUserProfile({ full_name: name });
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        console.error('Error updating profile:', result.error);
+        // Still navigate to dashboard even if update fails
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Error updating profile:', error);
+      // Still navigate to dashboard even if update fails
+      navigate('/dashboard');
     } finally {
       setLoading(false);
     }
