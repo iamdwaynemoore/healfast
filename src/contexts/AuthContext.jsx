@@ -69,20 +69,22 @@ export function AuthProvider({ children }) {
 
   const signInWithGoogle = async () => {
     try {
-      // Mock Google OAuth - in a real app, this would use Google OAuth
-      // For demo purposes, we'll simulate getting a Google user
-      const googleUser = {
-        id: 'google-' + Date.now().toString(),
-        email: 'user@gmail.com',
-        provider: 'google',
-        onboarding_completed: false,
-        // Don't set full_name so onboarding will trigger
-      };
+      // For now, we'll create a demo account since Google OAuth isn't configured
+      // In production, you would enable Google provider in Supabase Auth settings
+      const timestamp = Date.now();
+      const demoEmail = `demo${timestamp}@example.com`;
+      const demoPassword = `Demo${timestamp}!`; // Strong password for Supabase
       
-      await User.create(googleUser);
-      localStorage.setItem('currentUser', JSON.stringify(googleUser));
-      setUser(googleUser);
-      return { success: true };
+      // Create a new account with demo credentials
+      const result = await signup(demoEmail, demoPassword, '');
+      
+      if (result.success) {
+        return { success: true };
+      } else {
+        // If signup fails, try to sign in (might already exist)
+        const signInResult = await login(demoEmail, demoPassword);
+        return signInResult;
+      }
     } catch (error) {
       return { success: false, error: error.message };
     }
