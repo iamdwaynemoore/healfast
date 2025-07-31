@@ -9,10 +9,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Supabase environment variables are not set!')
   console.error('VITE_SUPABASE_URL:', supabaseUrl)
   console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'Set' : 'Not set')
-} else {
-  console.log('Supabase URL:', supabaseUrl)
-  console.log('Supabase Key length:', supabaseAnonKey.length)
-  console.log('First 20 chars of key:', supabaseAnonKey.substring(0, 20))
 }
 
 // Create and export Supabase client
@@ -21,7 +17,8 @@ export const supabase = supabaseUrl && supabaseAnonKey
       auth: {
         autoRefreshToken: true,
         persistSession: true,
-        detectSessionInUrl: true
+        detectSessionInUrl: true,
+        flowType: 'pkce'
       }
     })
   : null
