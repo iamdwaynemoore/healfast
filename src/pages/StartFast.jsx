@@ -9,8 +9,6 @@ const FASTING_TYPES = [
   {
     id: 'intermittent',
     name: 'Intermittent Fasting',
-    level: 'Beginner',
-    levelColor: 'from-green-500/20 to-emerald-500/20',
     description: 'Time-restricted eating is the perfect entry point into fasting. By limiting your eating window, you give your digestive system a break while still enjoying daily meals. This method helps regulate insulin, boost mental clarity, and can lead to sustainable weight management.',
     protocols: ['16:8', '18:6', '20:4', 'OMAD'],
     durations: [16, 18, 20, 23],
@@ -20,8 +18,6 @@ const FASTING_TYPES = [
   {
     id: 'water',
     name: 'Water Fasting',
-    level: 'Intermediate',
-    levelColor: 'from-blue-500/20 to-cyan-500/20',
     description: 'A powerful healing protocol where only water is consumed. This allows your body to enter deeper states of autophagy, where cellular cleanup and regeneration occur. Water fasting has been practiced for millennia for both health and spiritual purposes.',
     durations: [24, 36, 48, 72],
     popular: 24,
@@ -30,8 +26,6 @@ const FASTING_TYPES = [
   {
     id: 'alternate',
     name: 'Alternate Day Fasting',
-    level: 'Intermediate',
-    levelColor: 'from-purple-500/20 to-pink-500/20',
     description: 'Cycle between fasting days and eating days to create a sustainable rhythm. On fasting days, consume minimal calories (500-600) or nothing at all. This method provides many benefits of extended fasting while allowing regular eating windows.',
     durations: [36, 36, 36, 36], // ADF is typically 36 hours cycles
     popular: 36,
@@ -41,8 +35,6 @@ const FASTING_TYPES = [
   {
     id: 'dry',
     name: 'Dry Fasting',
-    level: 'Advanced',
-    levelColor: 'from-orange-500/20 to-red-500/20',
     description: 'The most intensive form of fasting where both food and water are restricted. This ancient practice accelerates the body\'s healing processes and should only be attempted by experienced fasters under proper guidance. Each hour of dry fasting equals approximately 3 hours of water fasting in terms of therapeutic effect.',
     durations: [12, 16, 20, 24],
     popular: 16,
@@ -167,12 +159,9 @@ export default function StartFast() {
                           setSelectedProtocol(null);
                         }
                       }}
-                      className="w-full p-6 text-left relative"
+                      className="w-full p-6 text-left"
                     >
-                      <div className={`absolute top-3 right-3 px-3 py-1 rounded-full bg-gradient-to-r ${type.levelColor} backdrop-blur-sm`}>
-                        <span className="text-white text-xs font-medium">{type.level}</span>
-                      </div>
-                      <div className="pr-20">
+                      <div>
                         <h3 className="text-white text-lg font-light mb-2 flex items-center justify-between">
                           {type.name}
                           <svg 
@@ -186,23 +175,23 @@ export default function StartFast() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
                           </svg>
                         </h3>
+                        <p className="text-white/60 text-sm leading-relaxed">
+                          {type.description}
+                        </p>
                       </div>
                     </button>
                     
                     {/* Expanded content */}
                     {expandedType === type.id && (
                       <div className="animate-in slide-in-from-top-2 duration-300">
-                        {/* Description and warning */}
-                        <div className="px-6 pb-4">
-                          <p className="text-white/60 text-sm leading-relaxed mb-3">
-                            {type.description}
-                          </p>
-                          {type.warning && (
+                        {/* Warning if applicable */}
+                        {type.warning && (
+                          <div className="px-6 pb-4">
                             <p className="text-orange-400/80 text-xs italic">
                               ⚠️ {type.warning}
                             </p>
-                          )}
-                        </div>
+                          </div>
+                        )}
                         
                         {/* Protocols or Durations */}
                         <div className="px-6 pb-4">
