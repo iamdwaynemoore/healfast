@@ -1,132 +1,39 @@
 export const DAILY_WISDOM = [
-  {
-    quote: "The best of all medicines is resting and fasting.",
-    author: "Benjamin Franklin"
-  },
-  {
-    quote: "Fasting is the first principle of medicine.",
-    author: "Rumi"
-  },
-  {
-    quote: "A little starvation can really do more for the average sick man than can the best medicines and the best doctors.",
-    author: "Mark Twain"
-  },
-  {
-    quote: "He who eats until he is sick must fast until he is well.",
-    author: "English Proverb"
-  },
-  {
-    quote: "When the body is hungry, it eats itself, it cleanses itself.",
-    author: "Socrates"
-  },
-  {
-    quote: "Fasting is the soul's nourishment, it clears the mind and body.",
-    author: "Ancient Wisdom"
-  },
-  {
-    quote: "The light of the world will illuminate within you when you fast and purify yourself.",
-    author: "Mahatma Gandhi"
-  },
-  {
-    quote: "Fasting is a shield, it will protect you from the hellfire and prevent you from sins.",
-    author: "Prophet Muhammad"
-  },
-  {
-    quote: "Through fasting, let your mind depend on its own power.",
-    author: "Buddha"
-  },
-  {
-    quote: "Fasting cleanses the soul, raises the mind, subjects one's flesh to the spirit.",
-    author: "Saint Augustine"
-  },
-  {
-    quote: "The philosophy of fasting calls upon us to know ourselves, to master ourselves, and to discipline ourselves.",
-    author: "Tariq Ramadan"
-  },
-  {
-    quote: "Fasting is not just about food; it's about breaking patterns and creating space for growth.",
-    author: "Modern Wisdom"
-  },
-  {
-    quote: "In a fast, the body tears down its defective parts and then builds anew.",
-    author: "Herbert Shelton"
-  },
-  {
-    quote: "Fasting is the greatest remedy—the physician within.",
-    author: "Paracelsus"
-  },
-  {
-    quote: "When you fast, your body heals, your mind clears, and your spirit soars.",
-    author: "Unknown"
-  },
-  {
-    quote: "The hunger you feel is your body healing itself.",
-    author: "Dr. Jason Fung"
-  },
-  {
-    quote: "Fasting is the reset button for your body and mind.",
-    author: "Modern Science"
-  },
-  {
-    quote: "Every cell in your body benefits from the rest that fasting provides.",
-    author: "Dr. Valter Longo"
-  },
-  {
-    quote: "Fasting turns on the body's natural healing mechanisms.",
-    author: "Dr. Mark Hyman"
-  },
-  {
-    quote: "The absence of food is the presence of healing.",
-    author: "Health Wisdom"
-  },
-  {
-    quote: "Fasting: because sometimes the best thing you can do for your body is nothing.",
-    author: "Wellness Proverb"
-  },
-  {
-    quote: "Your body is designed to heal itself; fasting gives it the opportunity.",
-    author: "Natural Health"
-  },
-  {
-    quote: "In emptiness, we find fullness. In hunger, we find satisfaction.",
-    author: "Zen Wisdom"
-  },
-  {
-    quote: "Fasting sharpens the mind and strengthens the will.",
-    author: "Ancient Philosophy"
-  },
-  {
-    quote: "The body's wisdom emerges in the silence of fasting.",
-    author: "Holistic Health"
-  },
-  {
-    quote: "Fasting is not about deprivation; it's about liberation.",
-    author: "Spiritual Teaching"
-  },
-  {
-    quote: "When we stop consuming, we start transforming.",
-    author: "Transformation Coach"
-  },
-  {
-    quote: "Fasting teaches us that we need much less than we think we do.",
-    author: "Minimalist Philosophy"
-  },
-  {
-    quote: "The power to heal lies within you; fasting awakens it.",
-    author: "Natural Medicine"
-  },
-  {
-    quote: "Embrace the hunger, for it is the feeling of your body healing.",
-    author: "Fasting Community"
-  },
-  {
-    quote: "Fasting is the art of letting go to gain more.",
-    author: "Wellness Wisdom"
-  }
+  "My body knows how to heal itself.",
+  "I move through life with grace and intention.",
+  "Stillness reveals my inner strength.",
+  "Each moment of hunger is a moment of healing.",
+  "I am becoming the best version of myself.",
+  "My willpower grows stronger with each passing hour.",
+  "I trust my body's ancient wisdom.",
+  "Peace flows through me like a gentle river.",
+  "I am worthy of this transformation.",
+  "My mind is clear, my purpose is strong.",
+  "I embrace this journey with courage and compassion.",
+  "Every cell in my body is renewing itself.",
+  "I am patient with my progress and gentle with myself.",
+  "My spirit is unshakeable, my resolve is firm.",
+  "I choose wellness, I choose vitality, I choose life.",
+  "This temporary discomfort leads to lasting wellness.",
+  "I am discovering reserves of strength I never knew I had.",
+  "My body is my temple, and I honor it with rest.",
+  "I am present, I am powerful, I am healing.",
+  "Each breath brings me closer to my goals.",
+  "I trust the process and surrender to the journey.",
+  "My dedication today shapes my tomorrow.",
+  "I am capable of amazing things.",
+  "This moment of discipline is a gift to my future self.",
+  "I listen to my body with wisdom and respect.",
+  "My journey is unique, and I honor my own pace.",
+  "I am transforming from the inside out.",
+  "Clarity emerges from the quiet spaces within.",
+  "I am stronger than any craving.",
+  "My commitment to myself is unbreakable.",
+  "Today, I choose progress over perfection."
 ];
 
-export function getDailyWisdom() {
-  // Use the day of the year to select a quote consistently for each day
+export function getDailyAffirmation() {
+  // Use the day of the year to select an affirmation consistently for each day
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
   const diff = now - start;

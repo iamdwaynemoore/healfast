@@ -7,7 +7,7 @@ import { Droplets, Edit2, MoreVertical, Trophy, SmilePlus, Sparkles } from "luci
 import SmartCoach from "@/components/dashboard/SmartCoach";
 import MoodJournal from "@/components/journal/MoodJournal";
 import Logo from "@/components/Logo";
-import { getDailyWisdom } from "@/data/wisdom";
+import { getDailyAffirmation } from "@/data/wisdom";
 
 export default function Dashboard() {
   const [activeFast, setActiveFast] = useState(null);
@@ -464,18 +464,17 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Daily Wisdom */}
+            {/* Daily Affirmation */}
             <div className="backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-4">
                   <Sparkles className="w-4 h-4 text-white/40" />
-                  <h3 className="text-white/60 text-xs font-light tracking-widest uppercase">Daily Wisdom</h3>
+                  <h3 className="text-white/60 text-xs font-light tracking-widest uppercase">Today's Affirmation</h3>
                 </div>
-                <blockquote className="text-white/90 text-lg font-light leading-relaxed mb-3 italic">
-                  "{getDailyWisdom().quote}"
-                </blockquote>
-                <p className="text-white/50 text-sm">— {getDailyWisdom().author}</p>
+                <p className="text-white text-xl font-light leading-relaxed text-center">
+                  {getDailyAffirmation()}
+                </p>
               </div>
             </div>
 
