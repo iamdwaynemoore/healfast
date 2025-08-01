@@ -67,14 +67,10 @@ export default function ActiveTimer() {
 
   const loadActiveFast = async () => {
     try {
-      console.log('Loading active fast...');
       const sessions = await FastingSession.list('-created_at', 10);
-      console.log('All sessions:', sessions);
       const active = sessions.find(s => s.status === 'active');
-      console.log('Active fast found:', active);
 
       if (!active) {
-        console.log('No active fast found, redirecting to dashboard');
         navigate(createPageUrl("Dashboard"));
         return;
       }
@@ -124,7 +120,7 @@ export default function ActiveTimer() {
   const currentPhase = getFastingPhase();
 
   return (
-    <div className="fixed inset-0 bg-black overflow-hidden">
+    <div className="fixed inset-0 bg-black overflow-y-auto">
       {/* Background Video */}
       <div className="absolute inset-0 flex items-center justify-center">
         <video
