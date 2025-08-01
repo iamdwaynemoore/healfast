@@ -62,7 +62,9 @@ export default function StartFast() {
         notes: ''
       };
 
-      await FastingSession.create(fastData);
+      console.log('Creating fast with data:', fastData);
+      const createdSession = await FastingSession.create(fastData);
+      console.log('Fast created successfully:', createdSession);
       navigate(createPageUrl("ActiveTimer"));
     } catch (error) {
       console.error('Error starting fast:', error);
