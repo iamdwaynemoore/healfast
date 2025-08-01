@@ -7,26 +7,47 @@ import Logo from '@/components/Logo';
 
 const FASTING_TYPES = [
   {
+    id: 'intermittent',
+    name: 'Intermittent Fasting',
+    level: 'Beginner',
+    levelColor: 'from-green-500/20 to-emerald-500/20',
+    description: 'Time-restricted eating is the perfect entry point into fasting. By limiting your eating window, you give your digestive system a break while still enjoying daily meals. This method helps regulate insulin, boost mental clarity, and can lead to sustainable weight management.',
+    protocols: ['16:8', '18:6', '20:4', 'OMAD'],
+    durations: [16, 18, 20, 23],
+    popular: 16,
+    benefits: ['Improved insulin sensitivity', 'Enhanced mental focus', 'Sustainable weight loss', 'Better sleep quality']
+  },
+  {
     id: 'water',
-    name: 'Water Fast',
-    description: 'Pure water only',
-    durations: [16, 24, 48, 72],
-    popular: 24
+    name: 'Water Fasting',
+    level: 'Intermediate',
+    levelColor: 'from-blue-500/20 to-cyan-500/20',
+    description: 'A powerful healing protocol where only water is consumed. This allows your body to enter deeper states of autophagy, where cellular cleanup and regeneration occur. Water fasting has been practiced for millennia for both health and spiritual purposes.',
+    durations: [24, 36, 48, 72],
+    popular: 24,
+    benefits: ['Deep autophagy activation', 'Cellular regeneration', 'Immune system reset', 'Mental clarity and spiritual insight']
+  },
+  {
+    id: 'alternate',
+    name: 'Alternate Day Fasting',
+    level: 'Intermediate',
+    levelColor: 'from-purple-500/20 to-pink-500/20',
+    description: 'Cycle between fasting days and eating days to create a sustainable rhythm. On fasting days, consume minimal calories (500-600) or nothing at all. This method provides many benefits of extended fasting while allowing regular eating windows.',
+    durations: [36, 36, 36, 36], // ADF is typically 36 hours cycles
+    popular: 36,
+    protocols: ['Complete fast', 'Modified (500 cal)', '5:2 Diet'],
+    benefits: ['Significant weight loss', 'Improved metabolic flexibility', 'Reduced inflammation', 'Heart health improvement']
   },
   {
     id: 'dry',
-    name: 'Dry Fast',
-    description: 'No food or water',
+    name: 'Dry Fasting',
+    level: 'Advanced',
+    levelColor: 'from-orange-500/20 to-red-500/20',
+    description: 'The most intensive form of fasting where both food and water are restricted. This ancient practice accelerates the body\'s healing processes and should only be attempted by experienced fasters under proper guidance. Each hour of dry fasting equals approximately 3 hours of water fasting in terms of therapeutic effect.',
     durations: [12, 16, 20, 24],
-    popular: 16
-  },
-  {
-    id: 'intermittent',
-    name: 'Intermittent',
-    description: 'Time-restricted',
-    protocols: ['16:8', '18:6', '20:4', 'OMAD'],
-    durations: [16, 18, 20, 23],
-    popular: 16
+    popular: 16,
+    warning: 'Requires experience and careful monitoring',
+    benefits: ['Accelerated autophagy', 'Rapid inflammation reduction', 'Enhanced mental clarity', 'Deep cellular detoxification']
   }
 ];
 
@@ -134,19 +155,39 @@ export default function StartFast() {
                       setSelectedDuration(null);
                       setSelectedProtocol(null);
                     }}
-                    className={`w-full p-6 rounded-2xl border transition-all duration-300 ${
+                    className={`w-full p-6 rounded-2xl border transition-all duration-300 relative overflow-hidden ${
                       selectedType === type.id
                         ? 'bg-white/10 border-white/20'
                         : 'bg-white/5 border-white/10 hover:bg-white/10'
                     }`}
                   >
-                    <div className="text-left">
-                      <h3 className="text-white text-lg font-light mb-1">
+                    <div className={`absolute top-3 right-3 px-3 py-1 rounded-full bg-gradient-to-r ${type.levelColor} backdrop-blur-sm`}>
+                      <span className="text-white text-xs font-medium">{type.level}</span>
+                    </div>
+                    <div className="text-left pr-20">
+                      <h3 className="text-white text-lg font-light mb-2">
                         {type.name}
                       </h3>
-                      <p className="text-white/40 text-sm">
+                      <p className="text-white/60 text-sm leading-relaxed mb-3">
                         {type.description}
                       </p>
+                      {type.warning && (
+                        <p className="text-orange-400/80 text-xs italic mb-2">
+                          ⚠️ {type.warning}
+                        </p>
+                      )}
+                      {type.benefits && (
+                        <div className="mt-3 pt-3 border-t border-white/10">
+                          <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Key Benefits</p>
+                          <div className="flex flex-wrap gap-2">
+                            {type.benefits.map((benefit, index) => (
+                              <span key={index} className="text-white/50 text-xs bg-white/5 px-2 py-1 rounded-full">
+                                {benefit}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </button>
                 ))}
@@ -157,7 +198,7 @@ export default function StartFast() {
             {selectedType && selectedTypeData && (
               <div className="space-y-4 animate-in slide-in-from-bottom-4 duration-500">
                 <h2 className="text-white/60 text-xs font-light tracking-[0.3em] uppercase text-center">
-                  Select Duration
+                  {selectedTypeData.protocols ? 'Select Protocol' : 'Select Duration'}
                 </h2>
                 
                 <div className="grid grid-cols-2 gap-3">
