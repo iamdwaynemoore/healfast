@@ -33,7 +33,7 @@ export default function Dashboard() {
   const loadDashboardData = async () => {
     try {
       const [sessions, userProfile, user] = await Promise.all([
-        FastingSession.list('-created_date', 10),
+        FastingSession.list('-created_at', 10),
         UserProfile.list(),
         User.me()
       ]);

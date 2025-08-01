@@ -22,6 +22,16 @@ export default function ActiveTimer() {
 
   useEffect(() => {
     loadActiveFast();
+    
+    // Timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.error('Loading timeout - redirecting to dashboard');
+        navigate(createPageUrl("Dashboard"));
+      }
+    }, 5000);
+    
+    return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
@@ -67,7 +77,7 @@ export default function ActiveTimer() {
 
   const loadActiveFast = async () => {
     try {
-      const sessions = await FastingSession.list('-created_date', 10);
+      const sessions = await FastingSession.list('-created_at', 10);
       const active = sessions.find(s => s.status === 'active');
 
       if (!active) {
@@ -78,6 +88,8 @@ export default function ActiveTimer() {
       setActiveFast(active);
     } catch (error) {
       console.error('Error loading active fast:', error);
+      alert(`Error loading timer: ${error.message}`);
+      navigate(createPageUrl("Dashboard"));
     } finally {
       setLoading(false);
     }

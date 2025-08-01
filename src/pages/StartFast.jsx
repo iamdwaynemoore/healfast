@@ -66,6 +66,7 @@ export default function StartFast() {
       navigate(createPageUrl("ActiveTimer"));
     } catch (error) {
       console.error('Error starting fast:', error);
+      alert(`Error starting fast: ${error.message}`);
     } finally {
       setIsStarting(false);
     }
