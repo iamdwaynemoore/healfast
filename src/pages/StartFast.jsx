@@ -53,6 +53,7 @@ const FASTING_TYPES = [
 
 export default function StartFast() {
   const navigate = useNavigate();
+  const [expandedType, setExpandedType] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState(null);
   const [selectedProtocol, setSelectedProtocol] = useState(null);
@@ -151,80 +152,128 @@ export default function StartFast() {
                   <div
                     key={type.id}
                     className={`w-full rounded-2xl border transition-all duration-300 relative overflow-hidden ${
-                      selectedType === type.id
+                      expandedType === type.id
                         ? 'bg-white/10 border-white/20'
                         : 'bg-white/5 border-white/10'
                     }`}
                   >
                     <button
                       onClick={() => {
-                        setSelectedType(type.id);
-                        setSelectedDuration(null);
-                        setSelectedProtocol(null);
+                        setExpandedType(expandedType === type.id ? null : type.id);
+                        // Reset selections when collapsing
+                        if (expandedType === type.id) {
+                          setSelectedType(null);
+                          setSelectedDuration(null);
+                          setSelectedProtocol(null);
+                        }
                       }}
-                      className="w-full p-6 text-left"
+                      className="w-full p-6 text-left relative"
                     >
                       <div className={`absolute top-3 right-3 px-3 py-1 rounded-full bg-gradient-to-r ${type.levelColor} backdrop-blur-sm`}>
                         <span className="text-white text-xs font-medium">{type.level}</span>
                       </div>
                       <div className="pr-20">
-                        <h3 className="text-white text-lg font-light mb-2">
+                        <h3 className="text-white text-lg font-light mb-2 flex items-center justify-between">
                           {type.name}
+                          <svg 
+                            className={`w-5 h-5 transition-transform duration-300 ${
+                              expandedType === type.id ? 'rotate-180' : ''
+                            }`} 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
+                          </svg>
                         </h3>
-                        <p className="text-white/60 text-sm leading-relaxed mb-3">
-                          {type.description}
-                        </p>
-                        {type.warning && (
-                          <p className="text-orange-400/80 text-xs italic mb-2">
-                            ⚠️ {type.warning}
-                          </p>
-                        )}
                       </div>
                     </button>
                     
-                    {/* Protocols shown when method is selected */}
-                    {selectedType === type.id && type.protocols && (
-                      <div className="px-6 pb-4 animate-in slide-in-from-top-2 duration-300">
-                        <div className="pt-4 border-t border-white/10">
-                          <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Choose Protocol</p>
-                          <div className="grid grid-cols-2 gap-2">
-                            {type.protocols.map((protocol, index) => (
-                              <button
-                                key={protocol}
-                                onClick={() => {
-                                  setSelectedDuration(type.durations[index]);
-                                  setSelectedProtocol(protocol);
-                                }}
-                                className={`p-3 rounded-xl border transition-all duration-300 ${
-                                  selectedProtocol === protocol
-                                    ? 'bg-white text-black border-white'
-                                    : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
-                                }`}
-                              >
-                                <div className="text-sm font-medium">{protocol}</div>
-                                {type.durations[index] === type.popular && (
-                                  <div className="text-[10px] opacity-60 mt-1">Popular</div>
-                                )}
-                              </button>
-                            ))}
+                    {/* Expanded content */}
+                    {expandedType === type.id && (
+                      <div className="animate-in slide-in-from-top-2 duration-300">
+                        {/* Description and warning */}
+                        <div className="px-6 pb-4">
+                          <p className="text-white/60 text-sm leading-relaxed mb-3">
+                            {type.description}
+                          </p>
+                          {type.warning && (
+                            <p className="text-orange-400/80 text-xs italic">
+                              ⚠️ {type.warning}
+                            </p>
+                          )}
+                        </div>
+                        
+                        {/* Protocols or Durations */}
+                        <div className="px-6 pb-4">
+                          <div className="pt-4 border-t border-white/10">
+                            <p className="text-white/40 text-xs uppercase tracking-wider mb-3">
+                              {type.protocols ? 'Choose Protocol' : 'Choose Duration'}
+                            </p>
+                            <div className="grid grid-cols-2 gap-2">
+                              {type.protocols ? (
+                                // Protocol selection
+                                type.protocols.map((protocol, index) => (
+                                  <button
+                                    key={protocol}
+                                    onClick={() => {
+                                      setSelectedType(type.id);
+                                      setSelectedDuration(type.durations[index]);
+                                      setSelectedProtocol(protocol);
+                                    }}
+                                    className={`p-3 rounded-xl border transition-all duration-300 ${
+                                      selectedProtocol === protocol && selectedType === type.id
+                                        ? 'bg-white text-black border-white'
+                                        : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
+                                    }`}
+                                  >
+                                    <div className="text-sm font-medium">{protocol}</div>
+                                    {type.durations[index] === type.popular && (
+                                      <div className="text-[10px] opacity-60 mt-1">Popular</div>
+                                    )}
+                                  </button>
+                                ))
+                              ) : (
+                                // Duration selection
+                                type.durations.map((duration) => (
+                                  <button
+                                    key={duration}
+                                    onClick={() => {
+                                      setSelectedType(type.id);
+                                      setSelectedDuration(duration);
+                                    }}
+                                    className={`p-3 rounded-xl border transition-all duration-300 ${
+                                      selectedDuration === duration && selectedType === type.id
+                                        ? 'bg-white text-black border-white'
+                                        : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
+                                    }`}
+                                  >
+                                    <div className="text-lg font-light">{duration}h</div>
+                                    {duration === type.popular && (
+                                      <div className="text-[10px] opacity-60">Popular</div>
+                                    )}
+                                  </button>
+                                ))
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                    
-                    {/* Benefits shown always */}
-                    {type.benefits && (
-                      <div className="px-6 pb-6">
-                        <div className="pt-3 border-t border-white/10">
-                          <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Key Benefits</p>
-                          <div className="flex flex-wrap gap-2">
-                            {type.benefits.map((benefit, index) => (
-                              <span key={index} className="text-white/50 text-xs bg-white/5 px-2 py-1 rounded-full">
-                                {benefit}
-                              </span>
-                            ))}
+                        
+                        {/* Benefits */}
+                        {type.benefits && (
+                          <div className="px-6 pb-6">
+                            <div className="pt-3 border-t border-white/10">
+                              <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Key Benefits</p>
+                              <div className="flex flex-wrap gap-2">
+                                {type.benefits.map((benefit, index) => (
+                                  <span key={index} className="text-white/50 text-xs bg-white/5 px-2 py-1 rounded-full">
+                                    {benefit}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -232,33 +281,7 @@ export default function StartFast() {
               </div>
             </div>
 
-            {/* Duration Selection - Only for non-protocol methods */}
-            {selectedType && selectedTypeData && !selectedTypeData.protocols && (
-              <div className="space-y-4 animate-in slide-in-from-bottom-4 duration-500">
-                <h2 className="text-white/60 text-xs font-light tracking-[0.3em] uppercase text-center">
-                  Select Duration
-                </h2>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  {selectedTypeData.durations.map((duration) => (
-                      <button
-                        key={duration}
-                        onClick={() => setSelectedDuration(duration)}
-                        className={`p-4 rounded-xl border transition-all duration-300 ${
-                          selectedDuration === duration
-                            ? 'bg-white text-black border-white'
-                            : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
-                        }`}
-                      >
-                        <div className="text-2xl font-light">{duration}h</div>
-                        {duration === selectedTypeData.popular && (
-                          <div className="text-[10px] opacity-60">Popular</div>
-                        )}
-                      </button>
-                    ))}
-                </div>
-              </div>
-            )}
+            {/* Remove separate duration selection since it's now integrated */}
 
             {/* Start Button */}
             {selectedType && selectedDuration && (
