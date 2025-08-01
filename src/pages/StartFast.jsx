@@ -9,6 +9,7 @@ const FASTING_TYPES = [
   {
     id: 'intermittent',
     name: 'Intermittent Fasting',
+    level: 'Beginner',
     description: 'Time-restricted eating is the perfect entry point into fasting. By limiting your eating window, you give your digestive system a break while still enjoying daily meals. This method helps regulate insulin, boost mental clarity, and can lead to sustainable weight management.',
     protocols: ['16:8', '18:6', '20:4', 'OMAD'],
     durations: [16, 18, 20, 23],
@@ -18,6 +19,7 @@ const FASTING_TYPES = [
   {
     id: 'water',
     name: 'Water Fasting',
+    level: 'Intermediate',
     description: 'A powerful healing protocol where only water is consumed. This allows your body to enter deeper states of autophagy, where cellular cleanup and regeneration occur. Water fasting has been practiced for millennia for both health and spiritual purposes.',
     durations: [24, 36, 48, 72],
     popular: 24,
@@ -26,6 +28,7 @@ const FASTING_TYPES = [
   {
     id: 'alternate',
     name: 'Alternate Day Fasting',
+    level: 'Intermediate',
     description: 'Cycle between fasting days and eating days to create a sustainable rhythm. On fasting days, consume minimal calories (500-600) or nothing at all. This method provides many benefits of extended fasting while allowing regular eating windows.',
     durations: [36, 36, 36, 36], // ADF is typically 36 hours cycles
     popular: 36,
@@ -35,6 +38,7 @@ const FASTING_TYPES = [
   {
     id: 'dry',
     name: 'Dry Fasting',
+    level: 'Advanced',
     description: 'The most intensive form of fasting where both food and water are restricted. This ancient practice accelerates the body\'s healing processes and should only be attempted by experienced fasters under proper guidance. Each hour of dry fasting equals approximately 3 hours of water fasting in terms of therapeutic effect.',
     durations: [12, 16, 20, 24],
     popular: 16,
@@ -163,7 +167,10 @@ export default function StartFast() {
                     >
                       <div>
                         <h3 className="text-white text-lg font-light mb-2 flex items-center justify-between">
-                          {type.name}
+                          <span className="flex items-center gap-2">
+                            {type.name}
+                            <span className="text-white/40 text-xs">· {type.level}</span>
+                          </span>
                           <svg 
                             className={`w-5 h-5 transition-transform duration-300 ${
                               expandedType === type.id ? 'rotate-180' : ''
