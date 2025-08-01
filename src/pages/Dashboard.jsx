@@ -3,10 +3,11 @@ import { FastingSession, UserProfile, User } from "@/api/entities";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { differenceInHours, startOfWeek, addDays, isSameDay, format, isToday } from "date-fns";
-import { Droplets, Edit2, MoreVertical, Trophy, SmilePlus } from "lucide-react";
+import { Droplets, Edit2, MoreVertical, Trophy, SmilePlus, Sparkles } from "lucide-react";
 import SmartCoach from "@/components/dashboard/SmartCoach";
 import MoodJournal from "@/components/journal/MoodJournal";
 import Logo from "@/components/Logo";
+import { getDailyWisdom } from "@/data/wisdom";
 
 export default function Dashboard() {
   const [activeFast, setActiveFast] = useState(null);
@@ -460,6 +461,21 @@ export default function Dashboard() {
                     }
                   }
                 `}} />
+              </div>
+            </div>
+
+            {/* Daily Wisdom */}
+            <div className="backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5" />
+              <div className="relative">
+                <div className="flex items-center gap-2 mb-4">
+                  <Sparkles className="w-4 h-4 text-white/40" />
+                  <h3 className="text-white/60 text-xs font-light tracking-widest uppercase">Daily Wisdom</h3>
+                </div>
+                <blockquote className="text-white/90 text-lg font-light leading-relaxed mb-3 italic">
+                  "{getDailyWisdom().quote}"
+                </blockquote>
+                <p className="text-white/50 text-sm">— {getDailyWisdom().author}</p>
               </div>
             </div>
 
